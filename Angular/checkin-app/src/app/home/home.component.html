@@ -1,0 +1,29 @@
+<div class="main-container">
+    <header class="header header-5">
+        <div class="branding">
+            <a href="./home" class="nav-link">
+                <clr-icon shape="vm-bug"></clr-icon>
+                <span class="title">CheckinApp</span>
+            </a>
+        </div>
+        <div class="header-actions">
+            <clr-dropdown>
+                <button class="nav-icon" clrDropdownTrigger>
+                    <clr-icon shape="cog"></clr-icon>
+                    <clr-icon shape="caret down"></clr-icon>
+                </button>
+                <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
+
+                    <a href="./login" clrDropdownItem>Sair</a>
+                </clr-dropdown-menu>
+            </clr-dropdown>
+        </div>
+    </header>
+    <div class="content-container">
+        <div class="content-area">
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+
+</div>
