@@ -1,0 +1,60 @@
+<form clrForm>
+
+    <clr-input-container>
+        <label>Nome:</label>
+        <input clrInput name="nome" placeholder="Nome completo" [(ngModel)]="pessoa.nome" />
+    </clr-input-container>
+    <clr-input-container>
+        <label>CPF:</label>
+        <input clrInput name="cpf" placeholder="XXX.XXX.XXX-XX" [(ngModel)]="pessoa.cpf" (focusout)="validarCPF(pessoa.cpf)" />
+    </clr-input-container>
+    <div *ngIf="!validarCPF(pessoa.cpf) && pessoa.cpf !==undefined" class="alert alert-danger" role="alert">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                </div>
+                <span class="alert-text">CPF inválido!</span>
+            </div>
+        </div>
+    </div>
+    <clr-date-container>
+        <label>Data de Nascimento:</label>
+        <input type="date" placeholder="DD/MM/AAAA" name="dataNasc" [(ngModel)]="pessoa.dataNasc" clrDate>
+    </clr-date-container>
+    <div *ngIf="!validarDATA(pessoa.dataNasc) && pessoa.dataNasc !==undefined" class="alert alert-danger" role="alert">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                </div>
+                <span class="alert-text">Data inválida!</span>
+            </div>
+        </div>
+    </div>
+
+
+    <clr-input-container>
+        <label>Telefone:</label>
+        <input clrInput name="telefone" placeholder="(XX) XXXXX-XXXX" [(ngModel)]="pessoa.telefone" />
+    </clr-input-container>
+
+    <div *ngIf="!validarTelefone(pessoa.telefone) && pessoa.telefone !==undefined" class="alert alert-danger" role="alert">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                </div>
+                <span class="alert-text">Telefone inválido!</span>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<br /><br />
+<div class="btn-group btn-primary">
+    <button (click)="goBack()" class="btn btn-danger">Cancelar</button>
+    <button class="btn btn-success">Adicionar</button>
+</div>
