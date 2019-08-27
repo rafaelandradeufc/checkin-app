@@ -16,6 +16,7 @@ import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.compo
 import { PessoaComponent } from './pessoa/pessoa.component';
 import { MenuServicoComponent } from './menu-servico/menu-servico.component';
 import { PresencaComponent } from './presenca/presenca.component';
+import { MaskDirective } from './mask.directive';
 registerLocaleData(localePt);
 
 
@@ -31,6 +32,7 @@ registerLocaleData(localePt);
     PessoaComponent,
     MenuServicoComponent,
     PresencaComponent,
+    MaskDirective,
     
   ],
   imports: [
