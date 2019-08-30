@@ -1,0 +1,10 @@
+.label-nome-text {
+    color: brown;
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.label-nome {
+    font-weight: bold;
+}

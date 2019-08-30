@@ -1,7 +1,7 @@
 <div class="main-container">
     <header class="header header-5">
         <div class="branding">
-            <a href="./home" class="nav-link">
+            <a href="/home" class="nav-link">
                 <clr-icon shape="vm-bug"></clr-icon>
                 <span class="title">CheckinApp</span>
             </a>
@@ -14,7 +14,7 @@
                 </button>
                 <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
 
-                    <a href="./login" clrDropdownItem>Sair</a>
+                    <button (click)="LogOut()" clrDropdownItem>Sair</button>
                 </clr-dropdown-menu>
             </clr-dropdown>
         </div>

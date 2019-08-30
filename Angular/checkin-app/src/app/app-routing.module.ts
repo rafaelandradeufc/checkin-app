@@ -7,13 +7,15 @@ import { PessoaJuridicaComponent } from './pessoa-juridica/pessoa-juridica.compo
 import { PessoaComponent } from './pessoa/pessoa.component';
 import { MenuServicoComponent } from './menu-servico/menu-servico.component';
 import { PresencaComponent } from './presenca/presenca.component';
+import { AuthGuardService } from './guards/auth-guard.service'
+
 
 
 const routes: Routes = [
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
-    path: 'home', component: HomeComponent, children: [
+    path: 'home', canActivate: [AuthGuardService], component: HomeComponent, children: [
       { path: '', redirectTo: 'menu-servico', pathMatch: 'full' },
       { path: 'menu-servico', component: MenuServicoComponent },
       {

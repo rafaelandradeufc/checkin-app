@@ -1,1 +1,35 @@
-<p>presenca works!</p>
+<form clrForm>
+
+    <clr-input-container>
+        <label>CPF:</label>
+        <input clrInput name="cpf" appMask="999.999.999-99" (keypress)="keyPressNotLetters($event)" placeholder="XXX.XXX.XXX-XX" [(ngModel)]="pessoa.cpf" (focusout)="validarCPF(pessoa.cpf)" />
+    </clr-input-container>
+    <div *ngIf="!validarCPF(pessoa.cpf) && pessoa.cpf !==undefined" class="alert alert-danger" role="alert">
+        <div class="alert-items">
+            <div class="alert-item static">
+                <div class="alert-icon-wrapper">
+                    <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                </div>
+                <span class="alert-text">CPF inválido!</span>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<br />
+<div class="clr-row">
+    <div class="clr-col-2">
+        <span class="label-nome">Nome:</span>
+    </div>
+    <div class="clr-col-10">
+        <span class="label-nome-text">{{pessoa.nome}}</span>
+    </div>
+
+</div>
+
+<br /><br />
+<div class="btn-group btn-primary">
+    <button (click)="goBack()" class="btn btn-danger">Cancelar</button>
+    <button class="btn" style="background-color: blueviolet">Efetivar</button>
+</div>
