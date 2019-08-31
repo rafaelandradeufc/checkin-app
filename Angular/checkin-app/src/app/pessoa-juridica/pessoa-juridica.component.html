@@ -1,3 +1,5 @@
+<h1>CADASTRO DE PESSOA JURÍDICA</h1>
+
 <form clrForm>
     <clr-input-container>
         <label>CPF:</label>
@@ -40,7 +42,6 @@
 </form>
 
 <br /><br />
-<div class="btn-group btn-primary">
-    <button (click)="goBack()" class="btn btn-danger">Cancelar</button>
-    <button class="btn btn-success">Adicionar</button>
-</div>
+
+<button (click)="goBack()" class="btn btn-danger-outline">Cancelar</button>
+<button [clrLoading]="validateBtnState" (click)="addPessoaJuridica()" class="btn btn-success-outline">Adicionar</button>

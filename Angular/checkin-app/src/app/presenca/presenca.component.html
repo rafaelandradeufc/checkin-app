@@ -29,7 +29,6 @@
 </div>
 
 <br /><br />
-<div class="btn-group btn-primary">
-    <button (click)="goBack()" class="btn btn-danger">Cancelar</button>
-    <button class="btn" style="background-color: blueviolet">Efetivar</button>
-</div>
+
+<button (click)="goBack()" class="btn btn-danger-outline">Cancelar</button>
+<button [clrLoading]="validateBtnState" (click)="addPresenca()" class="btn btn-success-outline">Efetivar</button>

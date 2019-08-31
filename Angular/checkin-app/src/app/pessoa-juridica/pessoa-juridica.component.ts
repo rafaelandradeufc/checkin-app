@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pessoa } from '../model/pessoa';
 import { Location } from '@angular/common';
+import { ClrLoadingState } from '@clr/angular';
 
 @Component({
   selector: 'app-pessoa-juridica',
@@ -11,6 +12,7 @@ export class PessoaJuridicaComponent implements OnInit {
   checked: boolean = false;
   pessoa = new Pessoa();
 
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
 
   constructor(private location: Location) { }
 
@@ -18,6 +20,18 @@ export class PessoaJuridicaComponent implements OnInit {
   }
 
   goBack() {
+    this.location.back();
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+
+  async addPessoaJuridica() {
+    this.validateBtnState = ClrLoadingState.LOADING;
+    this.validateBtnState = ClrLoadingState.SUCCESS;
+    await this.delay(1000);
     this.location.back();
   }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pessoa } from '../model/pessoa';
 import { Location } from '@angular/common';
+import { ClrLoadingState } from '@clr/angular';
 
 @Component({
   selector: 'app-pessoa-fisica',
@@ -8,12 +9,30 @@ import { Location } from '@angular/common';
   styleUrls: ['./pessoa-fisica.component.css']
 })
 export class PessoaFisicaComponent implements OnInit {
-  checked: boolean = false;
+
   pessoa = new Pessoa();
+
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
+
   constructor(private location: Location) { }
+
+
+
 
   ngOnInit() {
   }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async addPessoaFisica() {
+    this.validateBtnState = ClrLoadingState.LOADING;
+    this.validateBtnState = ClrLoadingState.SUCCESS;
+    await this.delay(1000);
+    this.location.back();
+  }
+
 
   goBack() {
     this.location.back();
@@ -21,7 +40,7 @@ export class PessoaFisicaComponent implements OnInit {
 
 
   keyPressNotNumbers(event: any) {
-    const pattern = /[a-zA-Z ]/;
+    const pattern = /[a-zA-Záàâãéèêíïóôõöúçñ ]/;
     const inputChar = String.fromCharCode(event.charCode);
 
     if (!pattern.test(inputChar)) {
@@ -93,3 +112,4 @@ export class PessoaFisicaComponent implements OnInit {
   }
 
 }
+

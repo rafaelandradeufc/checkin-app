@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Pessoa } from '../model/pessoa';
+import { ClrLoadingState } from '@clr/angular';
 
 @Component({
   selector: 'app-presenca',
@@ -11,6 +12,7 @@ export class PresencaComponent implements OnInit {
 
   pessoa = new Pessoa();
 
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
 
   constructor(private location: Location) { }
 
@@ -19,9 +21,30 @@ export class PresencaComponent implements OnInit {
   }
 
 
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async addPresenca() {
+    this.validateBtnState = ClrLoadingState.LOADING;
+    this.validateBtnState = ClrLoadingState.SUCCESS;
+    await this.delay(1000);
+    this.location.back();
+  }
+
   goBack() {
 
     this.location.back();
+  }
+
+  keyPressNotLetters(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
   }
 
   validarCPF(cpf: string): boolean {

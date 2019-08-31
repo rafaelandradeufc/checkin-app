@@ -1,3 +1,6 @@
+<h1>CADASTRO DE PESSOA FÍSICA</h1>
+
+
 <form clrForm>
 
     <clr-input-container>
@@ -26,7 +29,7 @@
 
     <clr-input-container>
         <label>Telefone:</label>
-        <input clrInput name="telefone" appMask="(99)99999-9999" placeholder="(XX)XXXXX-XXXX" (keypress)="keyPressNotLetters($event)" [(ngModel)]="pessoa.telefone" />
+        <input clrInput name="telefone" appMask="(99) 9.9999-9999" placeholder="(XX) X.XXXX-XXXX" (keypress)="keyPressNotLetters($event)" [(ngModel)]="pessoa.telefone" />
     </clr-input-container>
 
     <div *ngIf="!validarTelefone(pessoa.telefone) && pessoa.telefone !==undefined" class="alert alert-danger" role="alert">
@@ -43,7 +46,6 @@
 </form>
 
 <br /><br />
-<div class="btn-group btn-primary">
-    <button (click)="goBack()" class="btn btn-danger">Cancelar</button>
-    <button class="btn btn-success">Adicionar</button>
-</div>
+
+<button (click)="goBack()" class="btn btn-danger-outline">Cancelar</button>
+<button [clrLoading]="validateBtnState" (click)="addPessoaFisica()" class="btn btn-success-outline">Adicionar</button>
