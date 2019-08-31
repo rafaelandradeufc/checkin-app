@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pessoa } from '../model/pessoa';
 import { Location } from '@angular/common';
+import { ClrLoadingState } from '@clr/angular';
 
 @Component({
   selector: 'app-pessoa-fisica',
@@ -8,35 +9,61 @@ import { Location } from '@angular/common';
   styleUrls: ['./pessoa-fisica.component.css']
 })
 export class PessoaFisicaComponent implements OnInit {
-  checked: boolean = false;
+
   pessoa = new Pessoa();
+
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
+
   constructor(private location: Location) { }
+
+
+
 
   ngOnInit() {
   }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async addPessoaFisica() {
+    this.validateBtnState = ClrLoadingState.LOADING;
+    this.validateBtnState = ClrLoadingState.SUCCESS;
+    await this.delay(1000);
+    this.location.back();
+  }
+
 
   goBack() {
     this.location.back();
   }
 
-  validarDATA(data: string): boolean {
-    if (data == "" || data == null) { return false; }
 
-    const regex = /^([0-2][0-9]|(3)[0-1])(\/)(((0)[0-9])|((1)[0-2]))(\/)\d{4}$/gm;
-    data = data.replace(regex, "true");
+  keyPressNotNumbers(event: any) {
+    const pattern = /[a-zA-Záàâãéèêíïóôõöúçñ ]/;
+    const inputChar = String.fromCharCode(event.charCode);
 
-    if (data == "true") {
-      return true;
-
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
     }
-
-    return false;
-
   }
 
+  keyPressNotLetters(event: any) {
+    const pattern = /[0-9.-/]/;
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
+
+
   validarTelefone(telefone: string): boolean {
+
     if (telefone == "" || telefone == null) { return false; }
-    
+
     telefone = telefone.replace(/[^\d]+/g, '');
     if (telefone.length >= 11) {
       return true;
@@ -85,3 +112,4 @@ export class PessoaFisicaComponent implements OnInit {
   }
 
 }
+

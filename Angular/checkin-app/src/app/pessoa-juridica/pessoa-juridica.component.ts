@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pessoa } from '../model/pessoa';
 import { Location } from '@angular/common';
+import { ClrLoadingState } from '@clr/angular';
 
 @Component({
   selector: 'app-pessoa-juridica',
@@ -11,6 +12,8 @@ export class PessoaJuridicaComponent implements OnInit {
   checked: boolean = false;
   pessoa = new Pessoa();
 
+  validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
+
   constructor(private location: Location) { }
 
   ngOnInit() {
@@ -20,16 +23,27 @@ export class PessoaJuridicaComponent implements OnInit {
     this.location.back();
   }
 
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
-  validarCNPJ(cnpj: string): boolean {
-    if (cnpj == "" || cnpj == null) { return false; }
-    
-    cnpj = cnpj.replace(/[^\d]+/g, '');
-    if (cnpj.length >= 14) {
-      return true;
+
+  async addPessoaJuridica() {
+    this.validateBtnState = ClrLoadingState.LOADING;
+    this.validateBtnState = ClrLoadingState.SUCCESS;
+    await this.delay(1000);
+    this.location.back();
+  }
+
+
+  keyPressNotLetters(event: any) {
+    const pattern = /[0-9.-/]/;
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
     }
-    return false;
-
   }
 
 
@@ -47,6 +61,47 @@ export class PessoaJuridicaComponent implements OnInit {
     return false;
 
   }
+
+
+  validarCNPJ(str): boolean {
+
+    if (str == "" || str == null) return false;
+
+    let cnpj = str.replace(/[^\d]+/g, '')
+
+    // Valida a quantidade de caracteres
+    if (cnpj.length !== 14)
+      return false
+
+    // Elimina inválidos com todos os caracteres iguais
+    if (/^(\d)\1+$/.test(cnpj))
+      return false
+
+    // Cáculo de validação
+    let t = cnpj.length - 2,
+      d = cnpj.substring(t),
+      d1 = parseInt(d.charAt(0)),
+      d2 = parseInt(d.charAt(1)),
+      calc = x => {
+        let n = cnpj.substring(0, x),
+          y = x - 7,
+          s = 0,
+          r = 0
+
+        for (let i = x; i >= 1; i--) {
+          s += n.charAt(x - i) * y--;
+          if (y < 2)
+            y = 9
+        }
+
+        r = 11 - s % 11
+        return r > 9 ? 0 : r
+      }
+
+    return calc(t) === d1 && calc(t + 1) === d2
+  }
+
+
 
   validarCPF(cpf: string): boolean {
 

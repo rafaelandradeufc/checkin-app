@@ -1,0 +1,21 @@
+    .login-wrapper {
+        background-image: url(/assets/login.jpg);
+        background-repeat: no-repeat;
+        background-size: 95%;
+        background-position: right center;
+    }
+    
+    .login {
+        background-color: aliceblue;
+    }
+    
+    .input {
+        color: black;
+        font-weight: bold;
+    }
+    
+    .name-title {
+        color: #0077b8;
+        text-align: center;
+        padding: 0px 50px;
+    }

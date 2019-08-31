@@ -1,12 +1,15 @@
+<h1>CADASTRO DE PESSOA FÍSICA</h1>
+
+
 <form clrForm>
 
     <clr-input-container>
         <label>Nome:</label>
-        <input clrInput name="nome" placeholder="Nome completo" [(ngModel)]="pessoa.nome" />
+        <input clrInput name="nome" placeholder="Nome completo" (keypress)="keyPressNotNumbers($event)" [(ngModel)]="pessoa.nome" />
     </clr-input-container>
     <clr-input-container>
         <label>CPF:</label>
-        <input clrInput name="cpf" placeholder="XXX.XXX.XXX-XX" [(ngModel)]="pessoa.cpf" (focusout)="validarCPF(pessoa.cpf)" />
+        <input clrInput name="cpf" appMask="999.999.999-99" (keypress)="keyPressNotLetters($event)" placeholder="XXX.XXX.XXX-XX" [(ngModel)]="pessoa.cpf" (focusout)="validarCPF(pessoa.cpf)" />
     </clr-input-container>
     <div *ngIf="!validarCPF(pessoa.cpf) && pessoa.cpf !==undefined" class="alert alert-danger" role="alert">
         <div class="alert-items">
@@ -18,25 +21,15 @@
             </div>
         </div>
     </div>
-    <clr-date-container>
-        <label>Data de Nascimento:</label>
-        <input type="date" placeholder="DD/MM/AAAA" name="dataNasc" [(ngModel)]="pessoa.dataNasc" clrDate>
-    </clr-date-container>
-    <div *ngIf="!validarDATA(pessoa.dataNasc) && pessoa.dataNasc !==undefined" class="alert alert-danger" role="alert">
-        <div class="alert-items">
-            <div class="alert-item static">
-                <div class="alert-icon-wrapper">
-                    <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
-                </div>
-                <span class="alert-text">Data inválida!</span>
-            </div>
-        </div>
-    </div>
 
+    <clr-input-container>
+        <label>Data de Nascimento:</label>
+        <input clrInput name="dataNasc" appMask="99/99/9999" placeholder="DD/MM/AAAA" (keypress)="keyPressNotLetters($event)" name="dataNasc" [(ngModel)]="pessoa.dataNasc" />
+    </clr-input-container>
 
     <clr-input-container>
         <label>Telefone:</label>
-        <input clrInput name="telefone" placeholder="(XX) XXXXX-XXXX" [(ngModel)]="pessoa.telefone" />
+        <input clrInput name="telefone" appMask="(99) 9.9999-9999" placeholder="(XX) X.XXXX-XXXX" (keypress)="keyPressNotLetters($event)" [(ngModel)]="pessoa.telefone" />
     </clr-input-container>
 
     <div *ngIf="!validarTelefone(pessoa.telefone) && pessoa.telefone !==undefined" class="alert alert-danger" role="alert">
@@ -52,9 +45,7 @@
 
 </form>
 
-
 <br /><br />
-<div class="btn-group btn-primary">
-    <button (click)="goBack()" class="btn btn-danger">Cancelar</button>
-    <button class="btn btn-success">Adicionar</button>
-</div>
+
+<button (click)="goBack()" class="btn btn-danger-outline">Cancelar</button>
+<button [clrLoading]="validateBtnState" (click)="addPessoaFisica()" class="btn btn-success-outline">Adicionar</button>

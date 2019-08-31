@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,15 +14,23 @@ export class LoginComponent implements OnInit {
     rememberMe: false,
   };
 
-  activeMessageError:boolean = false;
+  activeMessageError: boolean = false;
 
-  constructor() {
+  constructor(private router: Router) {
+
+  }
+
+
+  LogOn() {
+    localStorage['token'] = 'xptoh26410x5=50';
+    this.router.navigate(['home']);
 
   }
 
   ngOnInit() {
 
   }
+
 
 
 }
