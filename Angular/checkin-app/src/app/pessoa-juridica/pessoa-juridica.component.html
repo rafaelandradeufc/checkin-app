@@ -1,6 +1,11 @@
 <h1>CADASTRO DE PESSOA JURÍDICA</h1>
 
 <form clrForm>
+
+    <clr-input-container>
+        <label>Nome:</label>
+        <input clrInput name="nome" placeholder="Nome completo" (keypress)="keyPressNotNumbers($event)" [(ngModel)]="pessoa.name" />
+    </clr-input-container>
     <clr-input-container>
         <label>CPF:</label>
         <input clrInput name="cpf" appMask="999.999.999-99" placeholder="XXX.XXX.XXX-XX" [(ngModel)]="pessoa.cpf" (focusout)="validarCPF(pessoa.cpf)" />
@@ -19,7 +24,7 @@
 
     <clr-input-container>
         <label>Data de Nascimento:</label>
-        <input clrInput name="dataNasc" appMask="99/99/9999" placeholder="DD/MM/AAAA" name="dataNasc" [(ngModel)]="pessoa.dataNasc" />
+        <input clrInput name="dataNasc" appMask="99/99/9999" placeholder="DD/MM/AAAA" name="dateBirth" [(ngModel)]="pessoa.dateBirth" />
     </clr-input-container>
 
 

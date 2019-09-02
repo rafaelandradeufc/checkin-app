@@ -17,6 +17,7 @@ import { PessoaComponent } from './pessoa/pessoa.component';
 import { MenuServicoComponent } from './menu-servico/menu-servico.component';
 import { PresencaComponent } from './presenca/presenca.component';
 import { MaskDirective } from './mask.directive';
+import { HttpClientModule } from '@angular/common/http';
 registerLocaleData(localePt);
 
 
@@ -41,7 +42,8 @@ registerLocaleData(localePt);
     ClarityModule,
     BrowserAnimationsModule,
     FormsModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
 
   ],
   providers: [{provide: LOCALE_ID, useValue: 'pt-PT'}],

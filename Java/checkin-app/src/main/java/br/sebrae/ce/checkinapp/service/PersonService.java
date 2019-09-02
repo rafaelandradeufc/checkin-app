@@ -10,15 +10,20 @@ import br.sebrae.ce.checkinapp.repository.PersonRepository;
 
 @Service
 public class PersonService {
-	
+
 	@Autowired
 	public PersonRepository repository;
-	
-	public List<Person> getPersons(){
+
+	public List<Person> getPersons() {
 		return (List<Person>) repository.findAll();
 	}
 
 	public Person addPerson(Person person) {
 		return repository.save(person);
+	}
+
+	public Person getPersonByCpf(String cpf) {
+		return repository.getByCpf(cpf);
+
 	}
 }

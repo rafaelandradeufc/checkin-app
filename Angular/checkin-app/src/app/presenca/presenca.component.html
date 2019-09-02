@@ -1,9 +1,14 @@
+<h1>
+    REGISTRO DE PRESENÇA</h1>
 <form clrForm>
 
+
+
     <clr-input-container>
-        <label>CPF:</label>
+        <label>CPF: </label>
         <input clrInput name="cpf" appMask="999.999.999-99" (keypress)="keyPressNotLetters($event)" placeholder="XXX.XXX.XXX-XX" [(ngModel)]="pessoa.cpf" (focusout)="validarCPF(pessoa.cpf)" />
     </clr-input-container>
+
     <div *ngIf="!validarCPF(pessoa.cpf) && pessoa.cpf !==undefined" class="alert alert-danger" role="alert">
         <div class="alert-items">
             <div class="alert-item static">
@@ -20,10 +25,12 @@
 <br />
 <div class="clr-row">
     <div class="clr-col-2">
-        <span class="label-nome">Nome:</span>
+        <span class="label-nome">Dados:</span>
     </div>
     <div class="clr-col-10">
-        <span class="label-nome-text">{{pessoa.nome}}</span>
+        <span class="label-nome-text">NOME: {{pessoa.name}}</span><br/>
+        <span class="label-nome-text">CPF: {{pessoa.cpf}}</span><br/>
+        <span class="label-nome-text">CNPJ: {{pessoa.cnpj}}</span>
     </div>
 
 </div>
@@ -32,3 +39,6 @@
 
 <button (click)="goBack()" class="btn btn-danger-outline">Cancelar</button>
 <button [clrLoading]="validateBtnState" (click)="addPresenca()" class="btn btn-success-outline">Efetivar</button>
+<button type="button" (click)="refreshPessoa()" class="btn btn-icon">
+    <clr-icon shape="sync"></clr-icon>
+</button>

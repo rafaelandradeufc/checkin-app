@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Pessoa } from '../model/pessoa';
 import { ClrLoadingState } from '@clr/angular';
+import { Router, ActivatedRoute } from '@angular/router';
+import { PessoaService } from '../service/pessoa.service';
 
 @Component({
   selector: 'app-presenca',
@@ -10,14 +12,28 @@ import { ClrLoadingState } from '@clr/angular';
 })
 export class PresencaComponent implements OnInit {
 
-  pessoa = new Pessoa();
+  pessoa: Pessoa = new Pessoa();
+
+
+  cpfRouter: string = null;
 
   validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
 
-  constructor(private location: Location) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private pessoaService: PessoaService) { }
 
   ngOnInit() {
-    this.pessoa.nome = "Rafael Andrade Pereira";
+
+    this.cpfRouter = this.activatedRoute.snapshot.paramMap.get('id');
+
+    if (this.cpfRouter !== null) {
+
+      this.pessoaService.getPessoaByCpf(this.cpfRouter).subscribe(pessoa => {
+        this.pessoa = pessoa
+      });
+    }
+
   }
 
 
@@ -25,16 +41,27 @@ export class PresencaComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  refreshPessoa() {
+
+    if (this.pessoa.cpf !== null && this.pessoa.cpf !== '') {
+
+      this.pessoaService.getPessoaByCpf(this.pessoa.cpf).subscribe(pessoa => {
+        this.pessoa = pessoa
+      });
+    }
+  }
+
+
   async addPresenca() {
     this.validateBtnState = ClrLoadingState.LOADING;
     this.validateBtnState = ClrLoadingState.SUCCESS;
     await this.delay(1000);
-    this.location.back();
+    this.goBack();
   }
 
   goBack() {
 
-    this.location.back();
+    this.router.navigate(['home']);
   }
 
   keyPressNotLetters(event: any) {

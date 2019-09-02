@@ -1,6 +1,6 @@
 export class Usuario {
     id: number;
-    nome: string;
+    name: string;
     login: string;
-    senha: string;
+    password: string;
 }

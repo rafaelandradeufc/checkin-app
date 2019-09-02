@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Pessoa } from '../model/pessoa';
 import { Location } from '@angular/common';
 import { ClrLoadingState } from '@clr/angular';
+import { PessoaService } from '../service/pessoa.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pessoa-fisica',
@@ -14,10 +16,9 @@ export class PessoaFisicaComponent implements OnInit {
 
   validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
 
-  constructor(private location: Location) { }
-
-
-
+  constructor(private router: Router, 
+    private location: Location, 
+    private pessoaService: PessoaService) { }
 
   ngOnInit() {
   }
@@ -27,10 +28,15 @@ export class PessoaFisicaComponent implements OnInit {
   }
 
   async addPessoaFisica() {
-    this.validateBtnState = ClrLoadingState.LOADING;
-    this.validateBtnState = ClrLoadingState.SUCCESS;
-    await this.delay(1000);
-    this.location.back();
+    this.pessoaService.addPessoa(this.pessoa).subscribe(async pessoa => {
+      this.validateBtnState = ClrLoadingState.LOADING;
+      this.validateBtnState = ClrLoadingState.SUCCESS;
+      await this.delay(1000);
+      this.router.navigate(['home/menu-servico/presenca', this.pessoa.cpf]);
+    });
+
+
+    ;
   }
 
 

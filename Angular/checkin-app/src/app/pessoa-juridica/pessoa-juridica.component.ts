@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Pessoa } from '../model/pessoa';
 import { Location } from '@angular/common';
 import { ClrLoadingState } from '@clr/angular';
+import { Router } from '@angular/router';
+import { PessoaService } from '../service/pessoa.service';
 
 @Component({
   selector: 'app-pessoa-juridica',
@@ -14,7 +16,9 @@ export class PessoaJuridicaComponent implements OnInit {
 
   validateBtnState: ClrLoadingState = ClrLoadingState.DEFAULT;
 
-  constructor(private location: Location) { }
+  constructor(private router: Router,
+    private location: Location,
+    private pessoaService: PessoaService) { }
 
   ngOnInit() {
   }
@@ -27,12 +31,24 @@ export class PessoaJuridicaComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
+  keyPressNotNumbers(event: any) {
+    const pattern = /[a-zA-Záàâãéèêíïóôõöúçñ ]/;
+    const inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+  }
 
   async addPessoaJuridica() {
-    this.validateBtnState = ClrLoadingState.LOADING;
-    this.validateBtnState = ClrLoadingState.SUCCESS;
-    await this.delay(1000);
-    this.location.back();
+    this.pessoaService.addPessoa(this.pessoa).subscribe(async pessoa => {
+      this.validateBtnState = ClrLoadingState.LOADING;
+      this.validateBtnState = ClrLoadingState.SUCCESS;
+      await this.delay(1000);
+      this.router.navigate(['home/menu-servico/presenca', this.pessoa.cpf]);
+    });
+
   }
 
 

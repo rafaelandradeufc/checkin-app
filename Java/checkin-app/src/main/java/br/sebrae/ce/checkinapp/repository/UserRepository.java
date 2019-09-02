@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import br.sebrae.ce.checkinapp.model.User;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer>{
+public interface UserRepository extends CrudRepository<User, Long>{
+	
+	User findByLogin(String login);
 
 }
