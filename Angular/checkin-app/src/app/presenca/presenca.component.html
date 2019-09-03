@@ -6,10 +6,10 @@
 
     <clr-input-container>
         <label>CPF: </label>
-        <input clrInput name="cpf" appMask="999.999.999-99" (keypress)="keyPressNotLetters($event)" placeholder="XXX.XXX.XXX-XX" [(ngModel)]="pessoa.cpf" (focusout)="validarCPF(pessoa.cpf)" />
+        <input clrInput name="cpf" appMask="999.999.999-99" (keypress)="keyPressNotLetters($event)" placeholder="XXX.XXX.XXX-XX" [(ngModel)]="cpf" (focusout)="validarCPF(cpf)" />
     </clr-input-container>
 
-    <div *ngIf="!validarCPF(pessoa.cpf) && pessoa.cpf !==undefined" class="alert alert-danger" role="alert">
+    <div *ngIf="!validarCPF(cpf) && cpf !==undefined" class="alert alert-danger" role="alert">
         <div class="alert-items">
             <div class="alert-item static">
                 <div class="alert-icon-wrapper">
@@ -20,6 +20,15 @@
         </div>
     </div>
 
+
+    <clr-select-container>
+        <label>Datas: </label>
+        <select clrSelect name="option" [(ngModel)]="id" required>
+            <option  *ngFor="let presenca of listPresenca" value="{{presenca.id}}">{{this.datepipe.transform(presenca.date, 'dd/MM/yyyy')}}</option>
+        </select>
+        <clr-control-error>Selecione um evento!</clr-control-error>
+    </clr-select-container>
+
 </form>
 
 <br />
@@ -28,12 +37,14 @@
         <span class="label-nome">Dados:</span>
     </div>
     <div class="clr-col-10">
-        <span class="label-nome-text">NOME: {{pessoa.name}}</span><br/>
-        <span class="label-nome-text">CPF: {{pessoa.cpf}}</span><br/>
+        <span class="label-nome-text">NOME: {{pessoa.name}}</span><br />
+        <span class="label-nome-text">CPF: {{pessoa.cpf}}</span><br />
         <span class="label-nome-text">CNPJ: {{pessoa.cnpj}}</span>
     </div>
 
 </div>
+
+
 
 <br /><br />
 

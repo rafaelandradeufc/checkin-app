@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Location, DatePipe } from '@angular/common';
 import { Pessoa } from '../model/pessoa';
 import { ClrLoadingState } from '@clr/angular';
 import { Router, ActivatedRoute } from '@angular/router';
 import { PessoaService } from '../service/pessoa.service';
+import { PresencaService } from '../service/presenca.service';
+import { Presence } from '../model/presence';
 
 @Component({
   selector: 'app-presenca',
@@ -14,6 +16,10 @@ export class PresencaComponent implements OnInit {
 
   pessoa: Pessoa = new Pessoa();
 
+  listPresenca: Presence[] = [];
+
+  cpf: string;
+  id: number;
 
   cpfRouter: string = null;
 
@@ -21,9 +27,16 @@ export class PresencaComponent implements OnInit {
 
   constructor(private activatedRoute: ActivatedRoute,
     private router: Router,
-    private pessoaService: PessoaService) { }
+    private pessoaService: PessoaService,
+    private presencaService: PresencaService,
+    public datepipe: DatePipe) { }
 
   ngOnInit() {
+
+    this.presencaService.getAll().subscribe(presencas => {
+      this.listPresenca = presencas;
+    });
+
 
     this.cpfRouter = this.activatedRoute.snapshot.paramMap.get('id');
 
@@ -43,9 +56,9 @@ export class PresencaComponent implements OnInit {
 
   refreshPessoa() {
 
-    if (this.pessoa.cpf !== null && this.pessoa.cpf !== '') {
+    if (this.cpf !== null && this.cpf !== '') {
 
-      this.pessoaService.getPessoaByCpf(this.pessoa.cpf).subscribe(pessoa => {
+      this.pessoaService.getPessoaByCpf(this.cpf).subscribe(pessoa => {
         this.pessoa = pessoa
       });
     }
@@ -53,10 +66,16 @@ export class PresencaComponent implements OnInit {
 
 
   async addPresenca() {
-    this.validateBtnState = ClrLoadingState.LOADING;
-    this.validateBtnState = ClrLoadingState.SUCCESS;
-    await this.delay(1000);
-    this.goBack();
+
+    this.presencaService.update(this.pessoa, this.id).subscribe(async presenca => {
+      this.validateBtnState = ClrLoadingState.LOADING;
+      this.validateBtnState = ClrLoadingState.SUCCESS;
+      await this.delay(1000);
+      this.goBack();
+
+    });
+
+
   }
 
   goBack() {

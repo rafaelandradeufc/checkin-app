@@ -3,10 +3,6 @@
 <form clrForm>
 
     <clr-input-container>
-        <label>Nome:</label>
-        <input clrInput name="nome" placeholder="Nome completo" (keypress)="keyPressNotNumbers($event)" [(ngModel)]="pessoa.name" />
-    </clr-input-container>
-    <clr-input-container>
         <label>CPF:</label>
         <input clrInput name="cpf" appMask="999.999.999-99" placeholder="XXX.XXX.XXX-XX" [(ngModel)]="pessoa.cpf" (focusout)="validarCPF(pessoa.cpf)" />
     </clr-input-container>
