@@ -5,7 +5,7 @@
 
     <clr-input-container>
         <label>Nome:</label>
-        <input clrInput name="nome" placeholder="Nome completo" (keypress)="keyPressNotNumbers($event)" [(ngModel)]="pessoa.nome" />
+        <input clrInput name="nome" placeholder="Nome completo" (keypress)="keyPressNotNumbers($event)" [(ngModel)]="pessoa.name" />
     </clr-input-container>
     <clr-input-container>
         <label>CPF:</label>
@@ -24,12 +24,12 @@
 
     <clr-input-container>
         <label>Data de Nascimento:</label>
-        <input clrInput name="dataNasc" appMask="99/99/9999" placeholder="DD/MM/AAAA" (keypress)="keyPressNotLetters($event)" name="dataNasc" [(ngModel)]="pessoa.dataNasc" />
+        <input clrInput name="dataNasc" appMask="99/99/9999" placeholder="DD/MM/AAAA" (keypress)="keyPressNotLetters($event)" name="dataNasc" [(ngModel)]="pessoa.dateBirth" />
     </clr-input-container>
 
     <clr-input-container>
         <label>Telefone:</label>
-        <input clrInput name="telefone" appMask="(99) 9.9999-9999" placeholder="(XX) X.XXXX-XXXX" (keypress)="keyPressNotLetters($event)" [(ngModel)]="pessoa.telefone" />
+        <input clrInput name="telefone" appMask="(99) 9.9999-9999" placeholder="(XX) X.XXXX-XXXX" (keypress)="keyPressNotLetters($event)" [(ngModel)]="pessoa.phoneNumber" />
     </clr-input-container>
 
     <div *ngIf="!validarTelefone(pessoa.telefone) && pessoa.telefone !==undefined" class="alert alert-danger" role="alert">

@@ -1,9 +1,12 @@
+import { Presence } from './presence';
+
 export class Pessoa {
     id: number;
-    nome: string;
+    name: string;
     cpf: string;
     cnpj: string;
-    dataNasc: string;
-    telefone: string;
-    juridicaStatus: boolean;
+    dateBirth: string;
+    phoneNumber: string;
+    presences: Presence[];
+
 }

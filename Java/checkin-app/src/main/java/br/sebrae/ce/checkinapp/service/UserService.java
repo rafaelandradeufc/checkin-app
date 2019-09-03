@@ -12,13 +12,21 @@ import br.sebrae.ce.checkinapp.repository.UserRepository;
 public class UserService {
 
 	@Autowired
-	UserRepository repository;
-	
-	public List<User> getUsers(){
-		return (List<User>) repository.findAll();
+	UserRepository userRepository;
+
+	public List<User> getUsers() {
+		return (List<User>) userRepository.findAll();
+	}
+
+	public User addUser(User user) {
+		return userRepository.save(user);
+	}
+
+	public long count() {
+		return userRepository.count();
 	}
 	
-	public User addUser(User user) {
-		return repository.save(user);
+	public User getByLogin(String login){		
+		return userRepository.findByLogin(login);
 	}
 }

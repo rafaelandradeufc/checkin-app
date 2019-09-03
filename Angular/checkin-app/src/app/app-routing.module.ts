@@ -24,6 +24,7 @@ const routes: Routes = [
       { path: 'menu-servico/pessoa/pessoa-fisica', component: PessoaFisicaComponent },
       { path: 'menu-servico/pessoa/pessoa-juridica', component: PessoaJuridicaComponent },
       { path: 'menu-servico/presenca', component: PresencaComponent },
+      { path: 'menu-servico/presenca/:id', component: PresencaComponent },
 
 
     ]

@@ -1,6 +1,7 @@
 package br.sebrae.ce.checkinapp.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -18,6 +19,15 @@ public class Presence {
 	@ManyToMany(cascade = CascadeType.ALL)
 	private List<Person> persons;
 	private LocalDate date;
+	
+	public Presence() {
+		
+	}
+	
+	public Presence(LocalDate date) {
+		this.date = date;
+		this.persons = new ArrayList<Person>();
+	}
 	
 	public long getId() {
 		return id;

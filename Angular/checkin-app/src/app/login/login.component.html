@@ -10,17 +10,16 @@
 
             <clr-input-container>
                 <label class="clr-sr-only">Username</label>
-                <input class="input" type="text" name="login" clrInput placeholder="Login" [(ngModel)]="form.username" />
+                <input class="input" type="text" name="login" clrInput placeholder="Login" [(ngModel)]="usuario.login" required/>
             </clr-input-container>
             <clr-password-container>
                 <label class="clr-sr-only">Password</label>
-                <input class="input" type="password" name="senha" clrPassword placeholder="Senha" [(ngModel)]="form.password" />
+                <input class="input" type="password" name="password" clrPassword placeholder="Senha" [(ngModel)]="usuario.password" required/>
             </clr-password-container>
             <div class="error active" *ngIf="activeMessageError">
                 Login ou senha inválida!
             </div>
             <button (click)="LogOn()" type="submit" class="btn btn-primary">Entrar</button>
-
         </div>
     </form>
 </div>

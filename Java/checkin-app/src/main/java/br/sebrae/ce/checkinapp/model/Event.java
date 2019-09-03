@@ -1,6 +1,7 @@
 package br.sebrae.ce.checkinapp.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -20,6 +21,16 @@ public class Event {
 	private List<Presence> presences;
 	private LocalDate eventBegin;
 	private LocalDate eventEnd;
+	
+	public Event() {		
+	}
+	
+	public Event(String name, LocalDate eventBegin, LocalDate eventEnd) {
+		this.name = name;
+		this.eventBegin = eventBegin;
+		this.eventEnd = eventEnd;
+		this.presences = new ArrayList<Presence>();
+	}
 	
 	public long getId() {
 		return id;
