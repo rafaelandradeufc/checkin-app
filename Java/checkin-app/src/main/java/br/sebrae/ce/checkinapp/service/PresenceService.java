@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.sebrae.ce.checkinapp.model.Person;
 import br.sebrae.ce.checkinapp.model.Presence;
 import br.sebrae.ce.checkinapp.repository.PresenceRepository;
 
@@ -20,5 +21,20 @@ public class PresenceService {
 	
 	public Presence addPresence(Presence presence) {
 		return repository.save(presence);
+	}
+	
+	public Person populatePresence(int idPresence, Person person) {
+		
+		List<Presence> presences = (List<Presence>) repository.findAll();
+		
+		for (Presence presence : presences) {
+			if (presence.getId() == idPresence) {
+				presence.getPersons().add(person);
+				repository.save(presence);
+				return person;
+			}
+		}
+
+		return null;
 	}
 }
